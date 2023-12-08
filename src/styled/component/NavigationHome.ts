@@ -7,7 +7,9 @@ export const NavMainContainer = styled.div`
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  background: green;
+  background: #161e29;
+  border-right: 2px solid #4c5561;
+  z-index: 50;
 `;
 
 export const LinkToQuestion = styled.div`

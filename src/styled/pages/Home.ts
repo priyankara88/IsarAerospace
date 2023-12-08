@@ -4,5 +4,5 @@ export const HomeMainContainer = styled.div`
   width: 100vw;
   height: 100vh;
   display: flex;
-  background: gray;
+  background: #10151d;
 `;

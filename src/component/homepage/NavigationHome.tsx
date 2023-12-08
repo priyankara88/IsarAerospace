@@ -1,16 +1,26 @@
-// import { NavMainContainer } from "../styled/Pages/component/NavigationHome";
-
+import { SyntheticEvent } from "react";
 import {
   LinkToQuestion,
   NavMainContainer,
 } from "../../styled/component/NavigationHome";
 
-const NavigationHome = () => {
+interface NavigationHomeProps {
+  setSelectVal: React.Dispatch<React.SetStateAction<string>>;
+}
+
+const NavigationHome: React.FC<NavigationHomeProps> = ({ setSelectVal }) => {
+  const handleClick = (event: SyntheticEvent) => {
+    const target = event.target.innerHTML;
+    console.log("target", target);
+    setSelectVal(target);
+    // window.location.href = "/Question-One";
+  };
+
   return (
     <NavMainContainer>
-      <LinkToQuestion>Q1</LinkToQuestion>
-      <LinkToQuestion>Q2</LinkToQuestion>
-      <LinkToQuestion>Q3</LinkToQuestion>
+      <LinkToQuestion onClick={handleClick}>Q1</LinkToQuestion>
+      <LinkToQuestion onClick={handleClick}>Q2</LinkToQuestion>
+      <LinkToQuestion onClick={handleClick}>Q3</LinkToQuestion>
     </NavMainContainer>
   );
 };
