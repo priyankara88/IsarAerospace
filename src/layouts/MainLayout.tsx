@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
+import styled from "styled-components";
 
 const MainLayout = () => {
   return (
     <div>
-      heder
+      <div>ttttt</div>
       <Outlet />
       footer
     </div>
@@ -11,3 +12,5 @@ const MainLayout = () => {
 };
 
 export default MainLayout;
+
+const TT = styled.div``;
