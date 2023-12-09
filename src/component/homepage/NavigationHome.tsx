@@ -13,7 +13,6 @@ const NavigationHome: React.FC<NavigationHomeProps> = ({ setSelectVal }) => {
     const target = event.target.innerHTML;
     console.log("target", target);
     setSelectVal(target);
-    // window.location.href = "/Question-One";
   };
 
   return (
