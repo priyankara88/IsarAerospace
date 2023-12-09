@@ -8,12 +8,24 @@ const Sensor = [
   "isActionRequired",
 ];
 
-const Messages = () => {
+interface iData {
+  velocity: number;
+  altitude: number;
+  temperature: number;
+  statusMessage?: string;
+  isAscending?: boolean;
+  isActionRequired?: boolean;
+}
+
+const Messages = ({ data }: { data: iData[] }) => {
   return (
     <>
       {Sensor.map((sensorName) => (
         <MessageMainContainer key={sensorName}>
-          {sensorName}
+          <p>{sensorName}</p>
+          <div>
+            <LableData />
+          </div>
         </MessageMainContainer>
       ))}
     </>
@@ -21,3 +33,7 @@ const Messages = () => {
 };
 
 export default Messages;
+
+const LableData = () => {
+  return <div>test</div>;
+};

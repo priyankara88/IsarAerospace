@@ -9,8 +9,9 @@ import {
   MessageContainer,
   TimeContainer,
 } from "../styled/pages/Home";
-import QuestionOne from "./QuestionOne";
+import QuestionOne, { iData } from "./QuestionOne";
 import { useEffect, useState } from "react";
+import QuestionTwo from "./QuestionTwo";
 
 const Home = () => {
   interface state {
@@ -18,6 +19,28 @@ const Home = () => {
   }
   // State for Manage Side Button Click
   const [selectVal, setSelectVal] = useState<state>();
+
+  //Add Fetch Data to The useState
+  const [fetchData, setFetchData] = useState<iData[]>([]);
+
+  //fetch Data from API
+  useEffect(() => {
+    const t = setInterval(() => {
+      fetch(
+        "https://webfrontendassignment-isaraerospace.azurewebsites.net/api/SpectrumStatus"
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setFetchData((pre) => [...pre, data]);
+          // console.log(data);
+        })
+        .catch((error) => console.error(error));
+    }, 5000);
+
+    return () => {
+      clearInterval(t);
+    };
+  }, []);
 
   return (
     <HomeMainContainer>
@@ -34,10 +57,14 @@ const Home = () => {
           <TimeContainer>bbbbbbb</TimeContainer>
         </HomeHeaderContainer>
         <MessageContainer>
-          <Messages />
+          <Messages data={fetchData} />
         </MessageContainer>
 
-        {selectVal == "Q1" ? <QuestionOne /> : null}
+        {selectVal === "Q1" ? (
+          <QuestionOne data={fetchData} />
+        ) : selectVal === "Q2" ? (
+          <QuestionTwo />
+        ) : null}
       </HomeBodyContainer>
     </HomeMainContainer>
   );

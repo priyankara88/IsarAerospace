@@ -1,29 +1,61 @@
-import styled from "styled-components";
+import {
+  LineChart,
+  Line,
+  XAxis,
+  YAxis,
+  CartesianGrid,
+  Tooltip,
+  Legend,
+} from "recharts";
+import { ChartContainer, QoneMainContainer } from "../styled/pages/QuestionOne";
 
-const QuestionOne = () => {
+export interface iData {
+  velocity: number;
+  altitude: number;
+  temperature: number;
+  statusMessage?: string;
+  isAscending?: boolean;
+  isActionRequired?: boolean;
+}
+
+const QuestionOne = ({ data }: { data: iData[] }) => {
   return (
     <QoneMainContainer>
-      <ChartContainer>chart</ChartContainer>
-      <ChartContainer>chart</ChartContainer>
-      <ChartContainer>chart</ChartContainer>
+      <ChartContainer>
+        <ChartBlock data={data} dataKey={"altitude"} />
+      </ChartContainer>
+      <ChartContainer>
+        <ChartBlock data={data} dataKey={"velocity"} />
+      </ChartContainer>
+      <ChartContainer>
+        <ChartBlock data={data} dataKey={"temperature"} />
+      </ChartContainer>
     </QoneMainContainer>
   );
 };
 
 export default QuestionOne;
 
-export const QoneMainContainer = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  gap: 5px;
-  padding: 10px;
-`;
+interface IChartBlock {
+  data: iData[];
+  dataKey: "velocity" | "altitude" | "temperature";
+}
 
-export const ChartContainer = styled.div`
-  width: 30%;
-  display: flex;
-  border: 2px solid #4c5561;
-  border-radius: 7px;
-`;
+const ChartBlock: React.FC<IChartBlock> = ({ data, dataKey }) => {
+  return (
+    <div
+      style={{
+        marginTop: 27,
+      }}
+    >
+      <LineChart width={420} height={400} data={data}>
+        <CartesianGrid strokeDasharray="3 3" />
+        {/* <XAxis dataKey="name" /> */}
+        <YAxis />
+        <Tooltip />
+        <Legend />
+        <Line type="monotone" dataKey={dataKey} stroke="#8884d8" />
+      </LineChart>
+    </div>
+  );
+};
