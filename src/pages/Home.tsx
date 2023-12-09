@@ -19,20 +19,6 @@ const Home = () => {
   // State for Manage Side Button Click
   const [selectVal, setSelectVal] = useState<state>();
 
-  // State for Manage Time
-  const locale = "en";
-  const [today, setDate] = useState(new Date());
-  // Set Timer for add Time in header
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setDate(new Date());
-    }, 60 * 1000);
-    return () => {
-      clearInterval(timer);
-    };
-  }, []);
-
-  console.log("selectVal", today);
   return (
     <HomeMainContainer>
       <NavigationHome setSelectVal={setSelectVal} />
