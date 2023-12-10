@@ -1,15 +1,19 @@
 import styled from "styled-components";
 
 export const MessageMainContainer = styled.div<{ bgcolor: string }>`
-  width: 12vw;
-  height: 7vw;
+  width: 100%; /* Use 100% width for responsiveness */
+  max-width: 250px; /* Set a maximum width to prevent it from becoming too wide */
+  height: 100px; /* Make height dynamic */
   margin: 10px;
-  display: flex;
+  overflow: auto;
+  padding: 1rem;
   border-radius: 7px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   font-size: larger;
-  justify-content: center;
-  background: ${({ bgcolor }) => bgcolor};
+  background: white;
+  border: 4px solid ${({ bgcolor }) => bgcolor};
+  @media (max-width: 750px) {
+    max-width: 90%;
+  }
 `;
 
 export const MessageBody = styled.div`
@@ -17,8 +21,8 @@ export const MessageBody = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  border-radius: 7px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  /* background: gray; */
+`;
+
+export const Title = styled.div`
+  font-size: larger;
 `;

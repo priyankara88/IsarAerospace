@@ -2,11 +2,13 @@ import Messages from "../component/homepage/Messages";
 import NavigationHome from "../component/homepage/NavigationHome";
 import Issra from "../../public/img/isra.png";
 import {
+  ButtonContainer,
   HomeBodyContainer,
   HomeHeaderContainer,
   HomeMainContainer,
   ImageContainer,
   MessageContainer,
+  RefreshButton,
   TimeContainer,
 } from "../styled/pages/Home";
 import QuestionOne, { iData } from "./QuestionOne";
@@ -17,31 +19,41 @@ import QuestionThree from "./QuestionThree";
 const Home = () => {
   // State for Manage Side Button Click
   const [selectVal, setSelectVal] = useState<string>("Q1");
-
   //Add Fetch Data to The useState
   const [fetchData, setFetchData] = useState<iData[]>([]);
   const [fetchSocketData, setFetchSocketData] = useState<iData[]>([]);
+  //Fetch Data request state
+  const [clickCount, setClickCount] = useState<number>(0);
+  //Time useState
+  const [currentTime, setCurrentTime] = useState(new Date());
+
+  // Reques Data From API
+  const HendleClick = () => {
+    setClickCount(clickCount + 1);
+  };
 
   //fetch Data from API
-
   useEffect(() => {
-    const t = setInterval(() => {
-      fetch(
-        "https://webfrontendassignment-isaraerospace.azurewebsites.net/api/SpectrumStatus"
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setFetchData((pre) => [...pre, data]);
-          // console.log(data);
-        })
-        .catch((error) => console.error(error));
-    }, 5000);
+    fetch(
+      "https://webfrontendassignment-isaraerospace.azurewebsites.net/api/SpectrumStatus"
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        setFetchData((pre) => [...pre, data]);
+        // console.log(data);
+      })
+      .catch((error) => console.error(error));
+  }, [clickCount]);
 
-    return () => {
-      clearInterval(t);
-    };
+  //Clock UseEffect and timer
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setCurrentTime(new Date());
+    }, 1000);
+    return () => clearInterval(intervalId);
   }, []);
 
+  const formattedTime = currentTime.toLocaleTimeString();
   return (
     <HomeMainContainer>
       <NavigationHome setSelectVal={setSelectVal} />
@@ -54,19 +66,22 @@ const Home = () => {
               alt="logo"
             />
           </ImageContainer>
-          <TimeContainer>bbbbbbb</TimeContainer>
+          <TimeContainer>{formattedTime}</TimeContainer>
         </HomeHeaderContainer>
         <MessageContainer>
-          <Messages
-            data={
-              selectVal === "Q1"
-                ? fetchData
-                : selectVal === "Q2"
-                ? fetchSocketData
-                : fetchData
-            }
-          />
+          {selectVal === "Q1" ? (
+            <Messages data={selectVal === "Q1" ? fetchData : fetchSocketData} />
+          ) : selectVal === "Q2" ? (
+            <Messages data={selectVal === "Q2" ? fetchSocketData : fetchData} />
+          ) : null}
         </MessageContainer>
+        <ButtonContainer>
+          {selectVal === "Q1" ? (
+            <RefreshButton onClick={HendleClick}>Request Data</RefreshButton>
+          ) : (
+            ""
+          )}
+        </ButtonContainer>
 
         {selectVal === "Q1" ? (
           <QuestionOne data={fetchData} />

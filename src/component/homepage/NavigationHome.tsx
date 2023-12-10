@@ -20,7 +20,8 @@ const NavigationHome: React.FC<NavigationHomeProps> = ({ setSelectVal }) => {
     <NavMainContainer>
       <LinkToQuestion
         style={{
-          border: clickbutton === "Q1" ? "2px solid red" : "1px solid black",
+          border:
+            clickbutton === "Q1" ? "2px solid #3f51b5" : "1px solid black",
         }}
         onClick={() => handleClick("Q1")}
       >
@@ -28,7 +29,8 @@ const NavigationHome: React.FC<NavigationHomeProps> = ({ setSelectVal }) => {
       </LinkToQuestion>
       <LinkToQuestion
         style={{
-          border: clickbutton === "Q2" ? "2px solid red" : "1px solid black",
+          border:
+            clickbutton === "Q2" ? "2px solid #3f51b5" : "1px solid black",
         }}
         onClick={() => handleClick("Q2")}
       >
@@ -36,7 +38,8 @@ const NavigationHome: React.FC<NavigationHomeProps> = ({ setSelectVal }) => {
       </LinkToQuestion>
       <LinkToQuestion
         style={{
-          border: clickbutton === "Q3" ? "2px solid red" : "1px solid black",
+          border:
+            clickbutton === "Q3" ? "2px solid #3f51b5" : "1px solid black",
         }}
         onClick={() => handleClick("Q3")}
       >

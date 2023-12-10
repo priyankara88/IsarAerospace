@@ -20,17 +20,19 @@ export interface iData {
 
 const QuestionOne = ({ data }: { data: iData[] }) => {
   return (
-    <QoneMainContainer>
-      <ChartContainer>
-        <ChartBlock data={data} dataKey={"velocity"} />
-      </ChartContainer>
-      <ChartContainer>
-        <ChartBlock data={data} dataKey={"altitude"} />
-      </ChartContainer>
-      <ChartContainer>
-        <ChartBlock data={data} dataKey={"temperature"} />
-      </ChartContainer>
-    </QoneMainContainer>
+    <>
+      <QoneMainContainer>
+        <ChartContainer>
+          <ChartBlock data={data} dataKey={"velocity"} />
+        </ChartContainer>
+        <ChartContainer>
+          <ChartBlock data={data} dataKey={"altitude"} />
+        </ChartContainer>
+        <ChartContainer>
+          <ChartBlock data={data} dataKey={"temperature"} />
+        </ChartContainer>
+      </QoneMainContainer>
+    </>
   );
 };
 

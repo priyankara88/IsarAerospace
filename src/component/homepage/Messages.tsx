@@ -1,6 +1,7 @@
 import {
   MessageBody,
   MessageMainContainer,
+  Title,
 } from "../../styled/component/Messages";
 const Sensor = [
   "velocity",
@@ -40,12 +41,21 @@ const Messages = ({ data }: { data: iData[] }) => {
               ? sensorName === "temperature" &&
                 data[data.length - 1]["isActionRequired"]
                 ? "red"
-                : "white"
-              : "white"
+                : sensorName === "altitude" &&
+                  data[data.length - 1]["isActionRequired"]
+                ? "red"
+                : sensorName === "velocity" &&
+                  data[data.length - 1]["isActionRequired"]
+                ? "red"
+                : sensorName === "statusMessage" &&
+                  data[data.length - 1]["isActionRequired"]
+                ? "red"
+                : "#3f51b5"
+              : ""
           }
         >
           <MessageBody>
-            <p>{sensorName}</p>
+            <Title>{sensorName}</Title>
             <div>
               {sensorName == "velocity" ? (
                 <LableData
@@ -67,14 +77,14 @@ const Messages = ({ data }: { data: iData[] }) => {
                   data={data.length ? data[data.length - 1] : defaultData}
                   dataKey={"statusMessage"}
                 />
-              ) : sensorName == "isActionRequired" ? (
-                <LableData
-                  data={data.length ? data[data.length - 1] : defaultData}
-                  dataKey={"isActionRequired"}
-                />
               ) : (
                 ""
               )}
+            </div>
+            <div style={{ color: "red" }}>
+              {data[data.length - 1]["isActionRequired"] == true
+                ? "critical status change"
+                : ""}
             </div>
           </MessageBody>
         </MessageMainContainer>
@@ -101,12 +111,7 @@ const LableData: React.FC<ILableData> = ({ data, dataKey }) => {
       {/* {data.map((item, index) => ( */}
       <div
         style={{
-          color:
-            dataKey === "temperature"
-              ? data["isActionRequired"]
-                ? "red"
-                : "green"
-              : "blue",
+          color: "black",
         }}
       >
         <p>{data[dataKey]}</p>
