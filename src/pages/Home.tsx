@@ -12,18 +12,18 @@ import {
 import QuestionOne, { iData } from "./QuestionOne";
 import { useEffect, useState } from "react";
 import QuestionTwo from "./QuestionTwo";
+import QuestionThree from "./QuestionThree";
 
 const Home = () => {
-  interface state {
-    iVal: string;
-  }
   // State for Manage Side Button Click
-  const [selectVal, setSelectVal] = useState<state>();
+  const [selectVal, setSelectVal] = useState<string>("Q1");
 
   //Add Fetch Data to The useState
   const [fetchData, setFetchData] = useState<iData[]>([]);
+  const [fetchSocketData, setFetchSocketData] = useState<iData[]>([]);
 
   //fetch Data from API
+
   useEffect(() => {
     const t = setInterval(() => {
       fetch(
@@ -57,13 +57,26 @@ const Home = () => {
           <TimeContainer>bbbbbbb</TimeContainer>
         </HomeHeaderContainer>
         <MessageContainer>
-          <Messages data={fetchData} />
+          <Messages
+            data={
+              selectVal === "Q1"
+                ? fetchData
+                : selectVal === "Q2"
+                ? fetchSocketData
+                : fetchData
+            }
+          />
         </MessageContainer>
 
         {selectVal === "Q1" ? (
           <QuestionOne data={fetchData} />
         ) : selectVal === "Q2" ? (
-          <QuestionTwo />
+          <QuestionTwo
+            fetchSocketData={fetchSocketData}
+            setFetchSocketData={setFetchSocketData}
+          />
+        ) : selectVal === "Q3" ? (
+          <QuestionThree />
         ) : null}
       </HomeBodyContainer>
     </HomeMainContainer>

@@ -1,4 +1,4 @@
-import { SyntheticEvent } from "react";
+import { useState } from "react";
 import {
   LinkToQuestion,
   NavMainContainer,
@@ -9,17 +9,39 @@ interface NavigationHomeProps {
 }
 
 const NavigationHome: React.FC<NavigationHomeProps> = ({ setSelectVal }) => {
-  const handleClick = (event: SyntheticEvent) => {
-    const target = event.target.innerHTML;
-    console.log("target", target);
-    setSelectVal(target);
+  const [clickbutton, setClickbutton] = useState<string>("");
+
+  const handleClick = (keyVal: string) => {
+    setSelectVal(keyVal);
+    setClickbutton(keyVal);
   };
 
   return (
     <NavMainContainer>
-      <LinkToQuestion onClick={handleClick}>Q1</LinkToQuestion>
-      <LinkToQuestion onClick={handleClick}>Q2</LinkToQuestion>
-      <LinkToQuestion onClick={handleClick}>Q3</LinkToQuestion>
+      <LinkToQuestion
+        style={{
+          border: clickbutton === "Q1" ? "2px solid red" : "1px solid black",
+        }}
+        onClick={() => handleClick("Q1")}
+      >
+        Q1
+      </LinkToQuestion>
+      <LinkToQuestion
+        style={{
+          border: clickbutton === "Q2" ? "2px solid red" : "1px solid black",
+        }}
+        onClick={() => handleClick("Q2")}
+      >
+        Q2
+      </LinkToQuestion>
+      <LinkToQuestion
+        style={{
+          border: clickbutton === "Q3" ? "2px solid red" : "1px solid black",
+        }}
+        onClick={() => handleClick("Q3")}
+      >
+        Q3
+      </LinkToQuestion>
     </NavMainContainer>
   );
 };

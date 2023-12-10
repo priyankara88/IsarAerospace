@@ -1,9 +1,15 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import QuestionOne, { iData } from "./QuestionOne";
 
-const QuestionTwo = () => {
-  const [fetchData, setFetchData] = useState<iData[]>([]);
+interface IQuestionTwo {
+  fetchSocketData: iData[];
+  setFetchSocketData: React.Dispatch<React.SetStateAction<iData[]>>;
+}
 
+const QuestionTwo: React.FC<IQuestionTwo> = ({
+  fetchSocketData,
+  setFetchSocketData,
+}) => {
   useEffect(() => {
     const socket = new WebSocket(
       "wss://webfrontendassignment-isaraerospace.azurewebsites.net/api/SpectrumWS"
@@ -16,7 +22,7 @@ const QuestionTwo = () => {
     socket.addEventListener("message", async (event) => {
       const data = await JSON.parse(event.data);
       console.log(data);
-      setFetchData((pre) => [
+      setFetchSocketData((pre) => [
         ...pre,
         {
           velocity: data.Velocity,
@@ -40,7 +46,7 @@ const QuestionTwo = () => {
 
   return (
     <div>
-      <QuestionOne data={fetchData} />
+      <QuestionOne data={fetchSocketData} />
     </div>
   );
 };
