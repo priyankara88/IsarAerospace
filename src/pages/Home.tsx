@@ -1,6 +1,7 @@
 import Messages from "../component/homepage/Messages";
 import NavigationHome from "../component/homepage/NavigationHome";
 import Issra from "../../public/img/isra.png";
+
 import {
   ButtonContainer,
   HomeBodyContainer,
@@ -32,6 +33,33 @@ const Home = () => {
     setClickCount(clickCount + 1);
   };
 
+  //HandleSpectrum WSS
+
+  const handleActOnSpectrumRequest = async () => {
+    const requestData = { action: "PerformAction" };
+
+    try {
+      const response = await fetch(
+        "https://webfrontendassignment-isaraerospace.azurewebsites.net/api/ActOnSpectrum",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestData),
+        }
+      );
+
+      const responseData = await response.json();
+      if (responseData.success) {
+        console.log(" successful");
+      } else {
+        console.error(" failed:", responseData.error);
+      }
+    } catch (error) {
+      console.error("Failed to send equest:", error);
+    }
+  };
   //fetch Data from API
   useEffect(() => {
     fetch(
@@ -78,6 +106,14 @@ const Home = () => {
         <ButtonContainer>
           {selectVal === "Q1" ? (
             <RefreshButton onClick={HendleClick}>Request Data</RefreshButton>
+          ) : (
+            ""
+          )}
+
+          {selectVal === "Q2" ? (
+            <RefreshButton onClick={() => handleActOnSpectrumRequest()}>
+              act in Spectrum
+            </RefreshButton>
           ) : (
             ""
           )}

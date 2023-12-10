@@ -81,10 +81,10 @@ const Messages = ({ data }: { data: iData[] }) => {
                 ""
               )}
             </div>
-            <div style={{ color: "red" }}>
-              {data[data.length - 1]["isActionRequired"] == true
-                ? "critical status change"
-                : ""}
+            <div>
+              {/* {data[data.length - 1]["isActionRequired"] == true
+                ? "ActionRequired"
+                : null} */}
             </div>
           </MessageBody>
         </MessageMainContainer>
