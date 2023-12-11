@@ -3,14 +3,7 @@ import {
   MessageMainContainer,
   Title,
 } from "../../styled/component/Messages";
-const Sensor = [
-  "velocity",
-  "altitude",
-  "temperature",
-  "statusMessage",
-  // "isAscending",
-  // "isActionRequired",
-];
+const Sensor = ["velocity", "altitude", "temperature", "statusMessage"];
 
 interface iData {
   velocity: number;
@@ -30,7 +23,11 @@ const defaultData: iData = {
   isActionRequired: false,
 };
 
-const Messages = ({ data }: { data: iData[] }) => {
+interface ChildComponentProps {
+  data: iData[];
+}
+
+const Messages: React.FC<ChildComponentProps> = ({ data }) => {
   return (
     <>
       {Sensor.map((sensorName) => (
@@ -81,11 +78,6 @@ const Messages = ({ data }: { data: iData[] }) => {
                 ""
               )}
             </div>
-            <div>
-              {/* {data[data.length - 1]["isActionRequired"] == true
-                ? "ActionRequired"
-                : null} */}
-            </div>
           </MessageBody>
         </MessageMainContainer>
       ))}
@@ -108,15 +100,18 @@ interface ILableData {
 const LableData: React.FC<ILableData> = ({ data, dataKey }) => {
   return (
     <div>
-      {/* {data.map((item, index) => ( */}
       <div
         style={{
           color: "black",
         }}
       >
         <p>{data[dataKey]}</p>
+        {data["isActionRequired"] ? (
+          <p style={{ textAlign: "center", color: "red" }}>Action Required</p>
+        ) : (
+          ""
+        )}
       </div>
-      {/* ))} */}
     </div>
   );
 };

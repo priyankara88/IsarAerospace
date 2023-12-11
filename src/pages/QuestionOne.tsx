@@ -1,7 +1,6 @@
 import {
   LineChart,
   Line,
-  XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
@@ -52,7 +51,6 @@ const ChartBlock: React.FC<IChartBlock> = ({ data, dataKey }) => {
     >
       <LineChart width={420} height={400} data={data}>
         <CartesianGrid strokeDasharray="3 3" />
-        {/* <XAxis dataKey="name" /> */}
         <YAxis />
         <Tooltip />
         <Legend />

@@ -23,6 +23,7 @@ const Home = () => {
   //Add Fetch Data to The useState
   const [fetchData, setFetchData] = useState<iData[]>([]);
   const [fetchSocketData, setFetchSocketData] = useState<iData[]>([]);
+
   //Fetch Data request state
   const [clickCount, setClickCount] = useState<number>(0);
   //Time useState
@@ -68,7 +69,6 @@ const Home = () => {
       .then((response) => response.json())
       .then((data) => {
         setFetchData((pre) => [...pre, data]);
-        // console.log(data);
       })
       .catch((error) => console.error(error));
   }, [clickCount]);

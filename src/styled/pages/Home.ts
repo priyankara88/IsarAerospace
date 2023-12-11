@@ -7,7 +7,7 @@ export const HomeMainContainer = styled.div`
   flex-direction: row;
   background: #10151d;
   @media (min-width: 1510px) {
-    height: 100vh;
+    height: 100%;
   }
 `;
 export const HomeHeaderContainer = styled.div`
